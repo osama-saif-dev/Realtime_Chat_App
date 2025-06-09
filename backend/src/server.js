@@ -9,27 +9,28 @@ import { app, server } from './lib/socket.js';
 import path from 'path';
 
 const port = process.env.PORT;
-const __dirname = path.resolve();
+const __dirName = path.resolve();
 
 app.use(express.json());
 app.use(cookieParser());
 app.use(cors({
-origin: 'http://localhost:5173',
-credentials: true
+    origin: 'http://localhost:5173',
+    credentials: true
 }));
 
 app.use('/api/auth', authRouter);
 app.use('/api/message', messageRouter);
 
 if (process.env.NODE_ENV === 'production') {
-app.use(express.static(path.join(__dirname, '../frontend/dist')));
-
-app.get('*', (req, res) => {
-res.sendFile(path.join(__dirname, '../frontend', 'dist', 'index.html'));
-});
+    app.use(express.static(path.join(__dirName, "../frontend/dist")));
+    app.all('/*splat', (req, res) => {
+        res.status(404).json({
+            message: `The URL ${req.originalUrl} doesn't exist`
+        });
+    });
 }
 
 server.listen(port, () => {
-console.log(`Server is runing on http://localhost:${port}`);
-connectDb();
+    console.log(`Server is runing on http://localhost:${port}`);
+    connectDb();
 });
