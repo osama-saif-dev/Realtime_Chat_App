@@ -14,25 +14,22 @@ const __dirname = path.resolve();
 app.use(express.json());
 app.use(cookieParser());
 app.use(cors({
-    origin: 'http://localhost:5173',
-    credentials: true
+origin: 'http://localhost:5173',
+credentials: true
 }));
 
 app.use('/api/auth', authRouter);
 app.use('/api/message', messageRouter);
 
 if (process.env.NODE_ENV === 'production') {
-    app.get('*', (req, res, next) => {
-        // Check for malformed URLs with colons
-        if (req.path.includes('::') || req.path.endsWith(':') || req.path.includes(':/')) {
-            return res.status(400).json({ error: 'Invalid URL format' });
-        }
-        next();
-    }, (req, res) => {
-        res.sendFile(path.join(__dirname, '../frontend', 'dist', 'index.html'));
-    });
+app.use(express.static(path.join(__dirname, '../frontend/dist')));
 
-    server.listen(port, () => {
-        console.log(`Server is runing on http://localhost:${port}`);
-        connectDb();
-    })
+app.get('*', (req, res) => {
+res.sendFile(path.join(__dirname, '../frontend', 'dist', 'index.html'));
+});
+}
+
+server.listen(port, () => {
+console.log(`Server is runing on http://localhost:${port}`);
+connectDb();
+});
