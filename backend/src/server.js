@@ -7,6 +7,7 @@ import cookieParser from 'cookie-parser';
 import cors from 'cors';
 import { app, server } from './lib/socket.js';
 import path from 'path';
+import history from 'connect-history-api-fallback';
 
 const port = process.env.PORT;
 const __dirName = path.resolve();
@@ -22,12 +23,13 @@ app.use('/api/auth', authRouter);
 app.use('/api/message', messageRouter);
 
 if (process.env.NODE_ENV === 'production') {
+    app.use(history());
     app.use(express.static(path.join(__dirName, "../frontend/dist")));
-    app.all('/*splat', (req, res) => {
-        res.status(404).json({
-            message: `The URL ${req.originalUrl} doesn't exist`
-        });
-    });
+    // app.all('/*splat', (req, res) => {
+    //     res.status(404).json({
+    //         message: `The URL ${req.originalUrl} doesn't exist`
+    //     });
+    // });
 }
 
 server.listen(port, () => {
