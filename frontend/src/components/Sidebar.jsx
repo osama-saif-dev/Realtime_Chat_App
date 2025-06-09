@@ -7,7 +7,7 @@ import { Users } from "lucide-react";
 const Sidebar = () => {
   const {
     getUsers, users, selectedUser, clearNotifications,
-    setSelectedUser, isUsersLoading, deleteNotifications, notifications
+    setSelectedUser, isUsersLoading, deleteNotifications
   } = useChatStore();
 
   const { onlineUsers } = useAuthStore();
@@ -72,10 +72,6 @@ const Sidebar = () => {
                     className="absolute bottom-0 right-0 size-3 bg-green-500 
                     rounded-full ring-2 ring-zinc-900"
                   />
-                )}
-                {notifications && notifications.length > 0 && notifications.senderId == user._id && (
-                  <span className="w-[20px] h-[20px] rounded-full bg-red-600 flex items-center justify-center">{notifications.length}</span>
-
                 )}
               </div>
             </div>
