@@ -26,10 +26,10 @@ app.use(cors(
 app.use('/api/auth', authRouter);
 app.use('/api/message', messageRouter);
 
-if (process.env.NODE_ENV === 'production') {
-    app.use(history());
-    app.use(express.static(path.join(__dirName, "../frontend/dist")));
-}
+// if (process.env.NODE_ENV === 'production') {
+//     app.use(history());
+//     app.use(express.static(path.join(__dirName, "../frontend/dist")));
+// }
 
 server.listen(port, () => {
     console.log(`Server is runing on http://localhost:${port}`);
