@@ -27,6 +27,18 @@ io.on('connection', (socket) => {
     
     // Online Users
     io.emit('getOnlineUsers', Object.keys(userSocketMap));
+
+    // Event Typing 
+    // socket.on('typing', ({ recieverId, isTyping }) => {
+    //     console.log('Event Typing');
+    //     const recieverSocketId = getRecieverSocketId(recieverId);
+    //     if (recieverSocketId){
+    //         socket.to(recieverId).emit('userTyping', {
+    //             userId,
+    //             isTyping
+    //         })
+    //     }
+    // });
     
     // Disconneted
     socket.on('disconnect', () => {
