@@ -1,5 +1,5 @@
 import mongoose from 'mongoose';
-
+import dotenv from 'dotenv';
 export default async function connectDb() {
     try{
         await mongoose.connect(process.env.MONGO_URL);
