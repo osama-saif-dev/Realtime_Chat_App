@@ -16,7 +16,7 @@ app.use(express.json());
 app.use(cookieParser());
 app.use(cors(
     {
-        origin: 'https://realtime-chat-app-client-eosin.vercel.app/',
+        origin: 'https://realtime-chat-app-client-eosin.vercel.app',
         credentials: true
     }
 ));
