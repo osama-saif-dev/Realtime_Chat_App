@@ -7,7 +7,9 @@ const server = http.createServer(app);
 
 const io = new Server(server, {
     cors: {
-        origin: ['https://realtime-chat-app-client-eosin.vercel.app']
+        origin: ['https://realtime-chat-app-client-eosin.vercel.app'],
+         methods: ['GET', 'POST'],
+         credentials: true
     }
 });
 
