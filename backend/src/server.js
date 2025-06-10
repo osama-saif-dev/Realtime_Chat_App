@@ -1,7 +1,5 @@
 import express from 'express';
-import dotenv from 'dotenv';
-dotenv.config({ path: './config/.env' });
-
+import 'dotenv/config';
 import authRouter from './routes/auth.route.js';
 import messageRouter from './routes/message.route.js';
 import connectDb from './lib/db.js';
@@ -16,24 +14,20 @@ const __dirName = path.resolve();
 
 app.use(express.json());
 app.use(cookieParser());
-app.use(cors(
-    {
-        origin: ['https://realtime-chat-app-client-eosin.vercel.app'],
-        credentials: true,
-        allowedHeaders: ['Content-Type', 'Authorization', 'Cookie']
-    }
-));
-
-connectDb();
+app.use(cors({
+    origin: 'http://localhost:5173',
+    credentials: true
+}));
 
 app.use('/api/auth', authRouter);
 app.use('/api/message', messageRouter);
 
-// if (process.env.NODE_ENV === 'production') {
-//     app.use(history());
-//     app.use(express.static(path.join(__dirName, "../frontend/dist")));
-// }
+if (process.env.NODE_ENV === 'production') {
+    app.use(history());
+    app.use(express.static(path.join(__dirName, "../frontend/dist")));
+}
 
 server.listen(port, () => {
     console.log(`Server is runing on http://localhost:${port}`);
+    connectDb();
 });
