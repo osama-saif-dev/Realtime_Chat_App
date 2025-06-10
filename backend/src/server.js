@@ -25,11 +25,6 @@ app.use('/api/message', messageRouter);
 if (process.env.NODE_ENV === 'production') {
     app.use(history());
     app.use(express.static(path.join(__dirName, "../frontend/dist")));
-    // app.all('/*splat', (req, res) => {
-    //     res.status(404).json({
-    //         message: `The URL ${req.originalUrl} doesn't exist`
-    //     });
-    // });
 }
 
 server.listen(port, () => {
