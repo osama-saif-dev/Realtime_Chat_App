@@ -1,5 +1,5 @@
 import express from 'express';
-import dotenv from 'dotenv'; 
+import dotenv from 'dotenv';
 dotenv.config({ path: './config/.env' });
 
 import authRouter from './routes/auth.route.js';
@@ -18,8 +18,9 @@ app.use(express.json());
 app.use(cookieParser());
 app.use(cors(
     {
-        origin: 'https://realtime-chat-app-client-eosin.vercel.app',
-        credentials: true
+        origin: ['https://realtime-chat-app-client-eosin.vercel.app'],
+        credentials: true,
+        allowedHeaders: ['Content-Type', 'Authorization', 'Cookie']
     }
 ));
 
