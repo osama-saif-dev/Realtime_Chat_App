@@ -23,6 +23,8 @@ app.use(cors(
     }
 ));
 
+connectDb();
+
 app.use('/api/auth', authRouter);
 app.use('/api/message', messageRouter);
 
@@ -33,5 +35,4 @@ app.use('/api/message', messageRouter);
 
 server.listen(port, () => {
     console.log(`Server is runing on http://localhost:${port}`);
-    connectDb();
 });
